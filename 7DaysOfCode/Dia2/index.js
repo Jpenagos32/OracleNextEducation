@@ -12,12 +12,6 @@ Al final, el sistema mostrará el mensaje:
 "Hola [nombre], tienes [edad] años y ya estás aprendiendo [lenguaje]!"
 */
 
-const nombre = prompt('Cual es tu nombre?')
-const edad = prompt('Cuantos años tienes?')
-const lenguaje = prompt('Que lenguaje de programación estás estudiando?')
-
-alert(`Hola ${nombre}, tienes ${edad} años y ya estás aprendiendo ${lenguaje}!`)
-
 /* 
 después de mostrar el mensaje anterior, el programa pregunte:
 
@@ -29,6 +23,11 @@ Y luego, dependiendo de la respuesta, debería mostrar uno de los siguientes men
 
 2 > Oh, qué pena... ¿Ya intentaste aprender otros lenguajes?
 */
+const nombre = prompt('Cual es tu nombre?')
+const edad = prompt('Cuantos años tienes?')
+const lenguaje = prompt('Que lenguaje de programación estás estudiando?')
+
+alert(`Hola ${nombre}, tienes ${edad} años y ya estás aprendiendo ${lenguaje}!`)
 const opcion = prompt(`
   Te gusta estudiar ${lenguaje}?. 
   Responde con las siguientes opciones 

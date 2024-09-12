@@ -19,6 +19,7 @@ public class Main {
 
     // Convertir un tipo de dato en otro
     int clasificacion = (int)(media / 2);
-    
+    System.out.println("clasificacion = " + clasificacion);
+
   }
 }

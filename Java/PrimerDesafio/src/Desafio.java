@@ -57,5 +57,7 @@ public class Desafio {
       }
     }
 
+    scanner.close();
+
   }
 }

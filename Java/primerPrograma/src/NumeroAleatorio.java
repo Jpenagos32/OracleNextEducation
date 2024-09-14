@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class NumeroAleatorio {
   public static void main(String[] args) {
-    int aleatorio = 12;/* new Random().nextInt(100); */
+    int aleatorio = new Random().nextInt(100);
     int intentos = 1;
     Scanner scanner = new Scanner(System.in);
     

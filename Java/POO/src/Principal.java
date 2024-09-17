@@ -1,5 +1,3 @@
-
-
 import com.julianpenagos.sceenmatch.modelos.Pelicula;
 
 public class Principal {

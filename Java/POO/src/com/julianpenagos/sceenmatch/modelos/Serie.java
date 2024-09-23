@@ -5,6 +5,11 @@ public class Serie extends Titulo {
   private int episodiosPorTemporada;
   private int minutosPorEpisodio;
 
+  @Override // indica que este metodo es una sobre escritura
+  public int getDuracionEnMinutos() {
+    return this.temporadas * this.episodiosPorTemporada * this.minutosPorEpisodio;
+  }
+
   public int getTemporadas() {
     return temporadas;
   }

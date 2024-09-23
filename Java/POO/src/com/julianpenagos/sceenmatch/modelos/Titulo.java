@@ -4,10 +4,16 @@ public class Titulo {
 
   private String nombre;
   private int fechaDeLanzamiento;
-  private int DuracionEnMinutos;
+  private int duracionEnMinutos;
   private boolean incluidoEnElPlan;
   private double sumaEvaluaciones;
   private int totalEvaluaciones;
+
+  public void muestraFichaTecnica() {
+    System.out.println("El nombre de la pelicula es: " + this.nombre);
+    System.out.println("Su fecha de lanzamiento es: " + this.fechaDeLanzamiento);
+    System.out.println("Duración en minutos: " + getDuracionEnMinutos());
+  }
 
   public void mostrarPelicula() {
 
@@ -21,7 +27,7 @@ public class Titulo {
         +---------------------+-----------------+
          Duración             |%d
         +---------------------+-----------------+
-        """, this.nombre, this.fechaDeLanzamiento, this.DuracionEnMinutos);
+        """, this.nombre, this.fechaDeLanzamiento, this.duracionEnMinutos);
 
   }
 
@@ -34,6 +40,7 @@ public class Titulo {
     return this.sumaEvaluaciones / totalEvaluaciones;
   }
 
+  /* GETTERS AND SETTERS */
   public String getNombre() {
     return nombre;
   }
@@ -51,11 +58,11 @@ public class Titulo {
   }
 
   public int getDuracionEnMinutos() {
-    return DuracionEnMinutos;
+    return duracionEnMinutos;
   }
 
   public void setDuracionEnMinutos(int duracionEnMinutos) {
-    DuracionEnMinutos = duracionEnMinutos;
+    this.duracionEnMinutos = duracionEnMinutos;
   }
 
   public boolean isIncluidoEnElPlan() {

@@ -1,4 +1,6 @@
 import com.julianpenagos.sceenmatch.calculos.CalculadoraDeTiempo;
+import com.julianpenagos.sceenmatch.calculos.FiltroRecomendacion;
+import com.julianpenagos.sceenmatch.modelos.Episodio;
 import com.julianpenagos.sceenmatch.modelos.Pelicula;
 import com.julianpenagos.sceenmatch.modelos.Serie;
 
@@ -31,6 +33,16 @@ public class Principal {
     calculadora.incluye(casaDragon);
     System.out.println(calculadora.getTiempoTotal());
 
+    FiltroRecomendacion filtroRecomendacion = new FiltroRecomendacion();
+    filtroRecomendacion.filtra(miPelicula);
+
+    Episodio episodio = new Episodio();
+    episodio.setNumero(1);
+    episodio.setNombre("La casa no se que");
+    episodio.setSerie(casaDragon);
+    episodio.setTotalVisualizaciones(50);
+
+    filtroRecomendacion.filtra(episodio);
 
   }
 }

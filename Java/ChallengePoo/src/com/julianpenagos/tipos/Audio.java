@@ -4,15 +4,15 @@ public class Audio {
   private String titulo;
   private int duracion;
   private int totalDeReproducciones;
-  private int meGusta;
+  private int totalDeMeGusta;
   private int clasificacion;
 
   public void meGusta() {
-    return;
+    this.totalDeMeGusta ++;
   }
 
-  public void reproducir() {
-    return;
+  public void reproduce() {
+    this.totalDeReproducciones++;
   }
 
   /* GETTERS AND SETTERS */
@@ -40,12 +40,12 @@ public class Audio {
     this.totalDeReproducciones = totalDeReproducciones;
   }
 
-  public int getMeGusta() {
-    return meGusta;
+  public int getTotalDeMeGusta() {
+    return totalDeMeGusta;
   }
 
-  public void setMeGusta(int meGusta) {
-    this.meGusta = meGusta;
+  public void setTotalDeMeGusta(int totalDeMeGusta) {
+    this.totalDeMeGusta = totalDeMeGusta;
   }
 
   public int getClasificacion() {

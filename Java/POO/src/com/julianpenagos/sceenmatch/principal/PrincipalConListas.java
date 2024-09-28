@@ -6,6 +6,8 @@ import com.julianpenagos.sceenmatch.modelos.Titulo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class PrincipalConListas {
   public static void main(String[] args) {
@@ -30,7 +32,7 @@ public class PrincipalConListas {
 
     }
 
-    ArrayList<String> listaArtistas = new ArrayList<>();
+    List<String> listaArtistas = new ArrayList<>();
     listaArtistas.add("Penélope Cruz");
     listaArtistas.add("Antonio Banderas");
     listaArtistas.add("Ricardo Darín");
@@ -40,6 +42,9 @@ public class PrincipalConListas {
     System.out.println("Lista de artistas Ordenada: " + listaArtistas);
 
     Collections.sort(lista);
-    System.out.println(lista);
+    System.out.println("Lista de titulos ordenados: " + lista);
+
+    lista.sort(Comparator.comparing(Titulo::getFechaDeLanzamiento));
+    System.out.println("Lista ordenada por fecha: " + lista);
   }
 }

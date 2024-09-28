@@ -9,13 +9,17 @@ public class Serie extends Titulo {
     super(nombre, fechaDeLanzamiento);
   }
 
-
+  @Override
+  public String toString(){
+    return "Serie: " + this.getNombre() + " (" + this.getFechaDeLanzamiento() + ")";
+  }
 
   @Override // indica que este metodo es una sobre escritura
   public int getDuracionEnMinutos() {
     return this.temporadas * this.episodiosPorTemporada * this.minutosPorEpisodio;
   }
 
+  //  GETTERS Y SETTERS
   public int getTemporadas() {
     return temporadas;
   }

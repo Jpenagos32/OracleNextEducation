@@ -1,3 +1,5 @@
+package com.julianpenagos.sceenmatch.principal;
+
 import com.julianpenagos.sceenmatch.calculos.CalculadoraDeTiempo;
 import com.julianpenagos.sceenmatch.calculos.FiltroRecomendacion;
 import com.julianpenagos.sceenmatch.modelos.Episodio;
@@ -8,8 +10,7 @@ import java.util.ArrayList;
 
 public class Principal {
   public static void main(String[] args) {
-    Pelicula miPelicula = new Pelicula("Encanto");
-    miPelicula.setFechaDeLanzamiento(2021);
+    Pelicula miPelicula = new Pelicula("Encanto", 2021);
     miPelicula.setDuracionEnMinutos(120);
     miPelicula.setIncluidoEnElPlan(true);
     miPelicula.mostrarPelicula();
@@ -19,9 +20,7 @@ public class Principal {
     System.out.println("Total de evaluaciones: " + miPelicula.getTotalEvaluaciones());
     System.out.println("Puntuación media de la pelicula: " + miPelicula.calculaMedia());
 
-    Serie casaDragon = new Serie();
-    casaDragon.setNombre("La casa del Dragón");
-    casaDragon.setFechaDeLanzamiento(2022);
+    Serie casaDragon = new Serie("La casa del dragon", 2022);
     casaDragon.setTemporadas(1);
     casaDragon.setMinutosPorEpisodio(50);
     casaDragon.setEpisodiosPorTemporada(10);
@@ -45,9 +44,8 @@ public class Principal {
 
     filtroRecomendacion.filtra(episodio);
 
-    Pelicula peliculaBruno = new Pelicula("El señor de los anillos");
+    Pelicula peliculaBruno = new Pelicula("El señor de los anillos", 2001);
     peliculaBruno.setDuracionEnMinutos(180);
-    peliculaBruno.setFechaDeLanzamiento(2001);
 
     ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
     listaPeliculas.add(miPelicula);

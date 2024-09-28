@@ -1,6 +1,6 @@
 package com.julianpenagos.sceenmatch.modelos;
 
-public class Titulo {
+public class Titulo implements Comparable<Titulo> {
 
   private String nombre;
   private int fechaDeLanzamiento;
@@ -23,16 +23,16 @@ public class Titulo {
   public void mostrarPelicula() {
 
     System.out.printf("""
-        +---------------------------------------+
-                         Pelicula
-        +---------------------------------------+
-         Nombre               |%s
-        +---------------------+-----------------+
-         Fecha de lanzamiento |%d
-        +---------------------+-----------------+
-         Duración             |%d
-        +---------------------+-----------------+
-        """, this.nombre, this.fechaDeLanzamiento, this.duracionEnMinutos);
+      +---------------------------------------+
+                       Pelicula
+      +---------------------------------------+
+       Nombre               |%s
+      +---------------------+-----------------+
+       Fecha de lanzamiento |%d
+      +---------------------+-----------------+
+       Duración             |%d
+      +---------------------+-----------------+
+      """, this.nombre, this.fechaDeLanzamiento, this.duracionEnMinutos);
 
   }
 
@@ -43,6 +43,11 @@ public class Titulo {
 
   public double calculaMedia() {
     return this.sumaEvaluaciones / totalEvaluaciones;
+  }
+
+  @Override
+  public int compareTo(Titulo otroTitulo) {
+    return this.getNombre().compareTo(otroTitulo.getNombre());
   }
 
   /* GETTERS AND SETTERS */

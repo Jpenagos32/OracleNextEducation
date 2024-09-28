@@ -4,6 +4,8 @@ import com.julianpenagos.sceenmatch.modelos.Episodio;
 import com.julianpenagos.sceenmatch.modelos.Pelicula;
 import com.julianpenagos.sceenmatch.modelos.Serie;
 
+import java.util.ArrayList;
+
 public class Principal {
   public static void main(String[] args) {
     Pelicula miPelicula = new Pelicula();
@@ -43,6 +45,22 @@ public class Principal {
     episodio.setTotalVisualizaciones(50);
 
     filtroRecomendacion.filtra(episodio);
+
+    Pelicula peliculaBruno = new Pelicula();
+    peliculaBruno.setNombre("El señor de los anillos");
+    peliculaBruno.setDuracionEnMinutos(180);
+    peliculaBruno.setFechaDeLanzamiento(2001);
+
+    ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
+    listaPeliculas.add(miPelicula);
+    listaPeliculas.add(peliculaBruno);
+
+    System.out.println("Tamaño de la lista: " + listaPeliculas.size());
+    System.out.println("La primera pelicula es: " + listaPeliculas.getFirst().getNombre());
+
+    System.out.println(listaPeliculas.toString());
+
+    System.out.println("To string de la pelicula: " + listaPeliculas.getFirst().getNombre());
 
   }
 }

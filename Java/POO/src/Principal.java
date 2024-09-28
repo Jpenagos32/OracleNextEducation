@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 public class Principal {
   public static void main(String[] args) {
-    Pelicula miPelicula = new Pelicula();
-    miPelicula.setNombre("Encanto");
+    Pelicula miPelicula = new Pelicula("Encanto");
     miPelicula.setFechaDeLanzamiento(2021);
     miPelicula.setDuracionEnMinutos(120);
     miPelicula.setIncluidoEnElPlan(true);
@@ -46,8 +45,7 @@ public class Principal {
 
     filtroRecomendacion.filtra(episodio);
 
-    Pelicula peliculaBruno = new Pelicula();
-    peliculaBruno.setNombre("El señor de los anillos");
+    Pelicula peliculaBruno = new Pelicula("El señor de los anillos");
     peliculaBruno.setDuracionEnMinutos(180);
     peliculaBruno.setFechaDeLanzamiento(2001);
 
@@ -57,10 +55,10 @@ public class Principal {
 
     System.out.println("Tamaño de la lista: " + listaPeliculas.size());
     System.out.println("La primera pelicula es: " + listaPeliculas.getFirst().getNombre());
-
-    System.out.println(listaPeliculas.toString());
-
+    System.out.println(listaPeliculas);
     System.out.println("To string de la pelicula: " + listaPeliculas.getFirst().getNombre());
+
+
 
   }
 }

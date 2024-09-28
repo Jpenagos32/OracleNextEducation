@@ -5,7 +5,10 @@ import com.julianpenagos.sceenmatch.calculos.Clasificacion;
 public class Pelicula extends Titulo implements Clasificacion{
   private String director;
 
-  
+  public Pelicula(String nombre){
+    this.setNombre(nombre);
+  }
+
   @Override
   public int getClasificacion() {
     return (int) (calculaMedia() / 2);

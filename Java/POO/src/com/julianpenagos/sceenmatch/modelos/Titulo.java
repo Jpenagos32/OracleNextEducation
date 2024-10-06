@@ -1,8 +1,12 @@
 package com.julianpenagos.sceenmatch.modelos;
 
-public class Titulo implements Comparable<Titulo> {
+import com.google.gson.annotations.SerializedName;
+import com.julianpenagos.sceenmatch.excepcion.ErrorEnConversionDeDuracionException;
 
+public class Titulo implements Comparable<Titulo> {
+  @SerializedName("Title")
   private String nombre;
+  @SerializedName("Year")
   private int fechaDeLanzamiento;
   private int duracionEnMinutos;
   private boolean incluidoEnElPlan;
@@ -12,6 +16,17 @@ public class Titulo implements Comparable<Titulo> {
   public Titulo(String nombre, int fechaDeLanzamiento) {
     this.nombre = nombre;
     this.fechaDeLanzamiento = fechaDeLanzamiento;
+  }
+
+  public Titulo(TituloOMDB miTituloOMDB) {
+    this.nombre = miTituloOMDB.title();
+    this.fechaDeLanzamiento = Integer.valueOf(miTituloOMDB.year());
+
+    if(miTituloOMDB.runtime().contains("N/A")){
+      throw new ErrorEnConversionDeDuracionException("No pude convertir la duración porque tiene un N/A");
+    }
+    this.duracionEnMinutos = Integer.valueOf(miTituloOMDB.runtime().substring(0,2));
+
   }
 
   public void muestraFichaTecnica() {
@@ -99,4 +114,13 @@ public class Titulo implements Comparable<Titulo> {
     this.totalEvaluaciones = totalEvaluaciones;
   }
 
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("Titulo{");
+    sb.append("nombre='").append(nombre).append('\'');
+    sb.append(", fechaDeLanzamiento=").append(fechaDeLanzamiento);
+    sb.append(", duracion=").append(duracionEnMinutos);
+    sb.append('}');
+    return sb.toString();
+  }
 }

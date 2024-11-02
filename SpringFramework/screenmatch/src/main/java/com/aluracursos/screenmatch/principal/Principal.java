@@ -71,20 +71,36 @@ public class Principal {
 
     episodios.forEach(System.out::println);
 
-    System.out.println("a partir de que año deseas ver los episodios?");
-    var fecha = teclado.nextInt();
-    teclado.nextLine();
+//    System.out.println("a partir de que año deseas ver los episodios?");
+//    var fecha = teclado.nextInt();
+//    teclado.nextLine();
+//
+//    LocalDate fechaBusqueda = LocalDate.of(fecha, 1, 1);
+//
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//    episodios.stream()
+//      .filter(e -> e.getFechaDeLanzamiento() != null && e.getFechaDeLanzamiento().isAfter(fechaBusqueda))
+//      .forEach(e -> System.out.println(
+//        "Temporada: " + e.getTemporada() +
+//          " Episodio: " + e.getTitulo() +
+//          " Fecha de Lanzamiento: " + e.getFechaDeLanzamiento().format(formatter)
+//      ));
 
-    LocalDate fechaBusqueda = LocalDate.of(fecha, 1, 1);
+    // Muestra evaluaciones de todas las temporadas
+    Map<Integer, Double> evaluacionesPorTemporada = episodios.stream()
+      .filter(e -> e.getEvaluacion() > 0)
+      .collect(Collectors.groupingBy(Episodio::getTemporada,
+        Collectors.averagingDouble(Episodio::getEvaluacion)));
+    System.out.println(evaluacionesPorTemporada);
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    episodios.stream()
-      .filter(e -> e.getFechaDeLanzamiento() != null && e.getFechaDeLanzamiento().isAfter(fechaBusqueda))
-      .forEach(e -> System.out.println(
-        "Temporada: " + e.getTemporada() +
-          " Episodio: " + e.getTitulo() +
-          " Fecha de Lanzamiento: " + e.getFechaDeLanzamiento().format(formatter)
-      ));
+    //Calcular estadísticas de las evaluaciones de los episodios
+    DoubleSummaryStatistics est = episodios.stream()
+      .filter(e -> e.getEvaluacion() > 0)
+      .collect(Collectors.summarizingDouble(Episodio::getEvaluacion));
+    System.out.println("Media " + est.getAverage());
+    System.out.println("Mejor episódio: " + est.getMax());
+    System.out.println("Peor episódio: " + est.getMin());
+    System.out.println("Cantidad " + est.getCount());
 
   }
 }

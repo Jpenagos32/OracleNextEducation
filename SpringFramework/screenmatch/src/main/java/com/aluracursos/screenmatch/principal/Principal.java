@@ -3,17 +3,19 @@ package com.aluracursos.screenmatch.principal;
 import com.aluracursos.screenmatch.model.DatosEpisodio;
 import com.aluracursos.screenmatch.model.DatosSerie;
 import com.aluracursos.screenmatch.model.DatosTemporada;
+import com.aluracursos.screenmatch.model.Episodio;
 import com.aluracursos.screenmatch.service.ConsumoAPI;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal {
   private Scanner teclado = new Scanner(System.in);
   private final String URL = "https://www.omdbapi.com/?t=";
-  private final String APIKEY = "&apikey=1e57290d";
+  private final String APIKEY = "&apikey=4fc7c187";
   private ConsumoAPI consumoAPI = new ConsumoAPI();
   private ConvierteDatos conversor = new ConvierteDatos();
 
@@ -41,5 +43,48 @@ public class Principal {
       }
     }
     temporadas.forEach(t -> t.episodios().forEach(e -> System.out.println(e.titulo())));
+
+    List<String> nombres = Arrays.asList("Genesys", "Eric", "Maria", "Brenda");
+
+    nombres.stream()
+      .sorted()
+      .limit(2)
+      .filter(n -> n.startsWith("E"))
+      .map(n -> n.toUpperCase())
+      .forEach(System.out::println);
+
+    List<DatosEpisodio> datosEpisodios = temporadas.stream()
+      .flatMap(t -> t.episodios().stream())
+      .collect(Collectors.toList());
+    System.out.println("\n Top 5 episodios");
+
+    datosEpisodios.stream()
+      .filter(e -> !e.evaluacion().equalsIgnoreCase("N/A"))
+      .sorted(Comparator.comparing(DatosEpisodio::evaluacion).reversed())
+      .limit(5)
+      .forEach(System.out::println);
+
+    List<Episodio> episodios = temporadas.stream()
+      .flatMap(t -> t.episodios().stream()
+        .map(d -> new Episodio(t.numero(), d)))
+      .collect(Collectors.toList());
+
+    episodios.forEach(System.out::println);
+
+    System.out.println("a partir de que año deseas ver los episodios?");
+    var fecha = teclado.nextInt();
+    teclado.nextLine();
+
+    LocalDate fechaBusqueda = LocalDate.of(fecha, 1, 1);
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    episodios.stream()
+      .filter(e -> e.getFechaDeLanzamiento() != null && e.getFechaDeLanzamiento().isAfter(fechaBusqueda))
+      .forEach(e -> System.out.println(
+        "Temporada: " + e.getTemporada() +
+          " Episodio: " + e.getTitulo() +
+          " Fecha de Lanzamiento: " + e.getFechaDeLanzamiento().format(formatter)
+      ));
+
   }
 }

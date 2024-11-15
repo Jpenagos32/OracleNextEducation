@@ -24,7 +24,13 @@ public class Serie {
   private Categoria genero;
   private String actores;
   private String sinopsis;
-  @Transient
+
+  // Dar opciones de actualizaciones en cascada para que registre los cambios tambien realizados en la tabla hija
+  @OneToMany(
+    mappedBy = "serie",
+    cascade = CascadeType.ALL,
+    fetch = FetchType.EAGER
+  )
   private List<Episodio> episodios = new ArrayList<>();
 
   public Serie(){}
@@ -47,7 +53,8 @@ public class Serie {
       ", evaluacion=" + evaluacion +
       ", poster='" + poster + '\'' +
       ", actores='" + actores + '\'' +
-      ", sinopsis='" + sinopsis + '\'';
+      ", sinopsis='" + sinopsis + '\'' +
+      ", episodios='" + episodios + '\'' ;
   }
 
   public Long getId() {
@@ -119,6 +126,7 @@ public class Serie {
   }
 
   public void setEpisodios(List<Episodio> episodios) {
+    episodios.forEach(e -> e.setSerie(this));
     this.episodios = episodios;
   }
 }

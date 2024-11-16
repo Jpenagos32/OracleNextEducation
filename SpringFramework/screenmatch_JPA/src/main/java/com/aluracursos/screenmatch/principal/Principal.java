@@ -1,9 +1,6 @@
 package com.aluracursos.screenmatch.principal;
 
-import com.aluracursos.screenmatch.model.DatosSerie;
-import com.aluracursos.screenmatch.model.DatosTemporadas;
-import com.aluracursos.screenmatch.model.Episodio;
-import com.aluracursos.screenmatch.model.Serie;
+import com.aluracursos.screenmatch.model.*;
 import com.aluracursos.screenmatch.repository.SerieRepository;
 import com.aluracursos.screenmatch.service.ConsumoAPI;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
@@ -34,6 +31,11 @@ public class Principal {
         2 - Buscar episodios
         3 - Listar series buscadas
         4 - Buscar series por titulo
+        5 - Top 5 mejores series
+        6 - Buscar series por categoria
+        7 - Buscar series por numero máximo de temporadas
+        8 - Buscar series por cantidad exacta de temporadas
+                
         0 - Salir
         """;
       System.out.println(menu);
@@ -53,6 +55,18 @@ public class Principal {
           break;
         case 4:
           buscarSeriesPorTitulo();
+          break;
+        case 5:
+          buscarTop5Series();
+          break;
+        case 6:
+          buscarSeriesPorCategoria();
+          break;
+        case 7:
+          buscarPorMaximoDeTemporadas();
+          break;
+        case 8:
+          buscarPorTemporadasExactas();
           break;
         case 0:
           System.out.println("Cerrando la aplicación...");
@@ -131,6 +145,51 @@ public class Principal {
       System.out.println("La serie buscada es: " + serieBuscada.get());
     } else {
       System.out.println("Serie no encontrada");
+    }
+  }
+
+  private void buscarTop5Series() {
+    List<Serie> topSeries = repository.findTop5ByOrderByEvaluacionDesc();
+    topSeries.forEach(s -> System.out.println("Serie: " + s.getTitulo() + " Evaluacion: " + s.getEvaluacion()));
+  }
+
+  private void buscarSeriesPorCategoria() {
+    System.out.println("Escriba el genero/categoria de la serie que desea buscar");
+    var genero = teclado.nextLine();
+    var categoria = Categoria.fromEspanol(genero);
+
+    List<Serie> seriesPorCategoria = repository.findByGenero(categoria);
+    System.out.println("Las series de la categoría " + genero);
+
+    seriesPorCategoria.forEach(System.out::println);
+
+  }
+
+  private void buscarPorMaximoDeTemporadas() {
+    System.out.println("Ingrese la cantidad máxima de temporadas de la serie que desea buscar");
+    var temporadas = teclado.nextInt();
+
+    List<Serie> seriesPorTemporada = repository.findByTotalTemporadasLessThanEqual(temporadas);
+    if (seriesPorTemporada.isEmpty()) {
+      System.out.println("No se encontró ninguna serie con " + temporadas + " temporadas o menos");
+    } else {
+      System.out.println("Las series con un máximo de " + temporadas + " temporadas: ");
+      seriesPorTemporada.forEach(System.out::println);
+    }
+
+  }
+
+  private void buscarPorTemporadasExactas() {
+    System.out.println("Ingrese la cantidad exacta de temporadas de la serie que desea buscar");
+    var temporadas = teclado.nextInt();
+
+    List<Serie> totalTemporadas = repository.findByTotalTemporadas(temporadas);
+
+    if (totalTemporadas.isEmpty()) {
+      System.out.println("No se encontro ninguna serie con " + temporadas + " temporadas");
+    } else {
+      System.out.println("Las series que tienen exactamente " + temporadas + " temporadas: ");
+      totalTemporadas.forEach(System.out::println);
     }
   }
 }

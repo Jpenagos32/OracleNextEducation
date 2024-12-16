@@ -1,11 +1,13 @@
 package med.voll.api.medico;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.direccion.Direccion;
+import org.springframework.web.bind.annotation.RequestBody;
 
 // ES MUY IMPORTANTE VERIFICAR LA VERSION DE LOMBOK, DE LO CONTRARIO NO FUNCIONA
 
@@ -25,6 +27,7 @@ public class Medico {
   private String email;
   private String documento;
   private String telefono;
+  private Boolean activo;
 
   @Enumerated(EnumType.STRING)
   private Especialidad especialidad;
@@ -39,6 +42,25 @@ public class Medico {
     this.especialidad = datosRegistroMedico.especialidad();
     this.direccion = new Direccion(datosRegistroMedico.direccion());
     this.telefono = datosRegistroMedico.telefono();
+    this.activo = true;
   }
 
+  public void actualizarDatos(DatosActualizarMedico datosActualizarMedico) {
+    if (datosActualizarMedico.nombre() != null) {
+      this.nombre = datosActualizarMedico.nombre();
+    }
+
+    if (datosActualizarMedico.documento() != null) {
+      this.documento = datosActualizarMedico.documento();
+    }
+
+    if (datosActualizarMedico.direccion() != null) {
+      this.direccion = direccion.actualizarDatos(datosActualizarMedico.direccion());
+    }
+
+  }
+
+  public void desactivarMedico() {
+    this.activo = false;
+  }
 }

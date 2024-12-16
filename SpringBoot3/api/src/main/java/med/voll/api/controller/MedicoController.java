@@ -6,9 +6,11 @@ import med.voll.api.medico.DatosRegistroMedico;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
@@ -25,7 +27,9 @@ public class MedicoController {
   }
 
   @GetMapping
-  public List<DatosListadoMedico> listadoMedicos(){
-    return medicoRepository.findAll().stream().map(DatosListadoMedico::new).toList();
+  // Con la anotación @PageableDefault podemos cambiar los parametros por defecto de la api de paginación
+  public Page<DatosListadoMedico> listadoMedicos(@PageableDefault(size = 2) Pageable paginacion){
+    // la combinacion del tipo de retorno "Page" junto con el parametro "Pageable" y lo que retorna genera una páginación
+    return medicoRepository.findAll(paginacion).map(DatosListadoMedico::new);
   }
 }

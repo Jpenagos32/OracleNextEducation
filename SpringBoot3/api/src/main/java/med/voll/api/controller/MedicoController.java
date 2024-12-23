@@ -2,8 +2,8 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import med.voll.api.direccion.DatosDireccion;
-import med.voll.api.medico.*;
+import med.voll.api.domain.direccion.DatosDireccion;
+import med.voll.api.domain.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,9 +51,9 @@ public class MedicoController {
 
   @GetMapping
   // Con la anotación @PageableDefault podemos cambiar los parametros por defecto de la api de paginación
-  public Page<DatosListadoMedico> listadoMedicos(@PageableDefault(size = 2) Pageable paginacion) {
+  public ResponseEntity<Page<DatosListadoMedico>>  listadoMedicos(@PageableDefault(size = 2) Pageable paginacion) {
     // la combinacion del tipo de retorno "Page" junto con el parametro "Pageable" y lo que retorna genera una páginación
-    return medicoRepository.findByActivoTrue(paginacion).map(DatosListadoMedico::new);
+    return ResponseEntity.ok(medicoRepository.findByActivoTrue(paginacion).map(DatosListadoMedico::new));
   }
 
   @PutMapping
@@ -91,7 +91,7 @@ public class MedicoController {
     return ResponseEntity.noContent().build();
   }
 
-  @DeleteMapping("/{id}") // entre las llaves indicamos que ahí va una variable /medicos/{id}
+  @GetMapping("/{id}") // entre las llaves indicamos que ahí va una variable /medicos/{id}
   public ResponseEntity<DatosRespuestaMedico> RetornaDatosMedico(@PathVariable Long id) { // la anotación @PathVariable indica que el id viene dentro de la ruta
     Medico medico = medicoRepository.getReferenceById(id);
 

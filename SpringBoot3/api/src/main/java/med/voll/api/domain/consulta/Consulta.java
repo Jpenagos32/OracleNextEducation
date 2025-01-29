@@ -1,2 +1,4 @@
-package med.voll.api.domain.consulta;public class Consulta {
+package med.voll.api.domain.consulta;
+
+public class Consulta {
 }

@@ -1,2 +1,4 @@
-package med.voll.api.domain.consulta;public record ConsultaRepository() {
+package med.voll.api.domain.consulta;
+
+public record ConsultaRepository() {
 }
